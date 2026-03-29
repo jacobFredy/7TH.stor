@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>Замовлення</title>
+<style>
+body { font-family: 'Poppins', sans-serif; background:#f9f9f9; color:#111; margin:0; padding:0; }
+header { background:#111; color:#fff; padding:20px; text-align:center; }
+form { max-width:400px; margin:40px auto; display:flex; flex-direction:column; }
+input, textarea, button { margin:10px 0; padding:10px; font-size:16px; }
+button { background:#c9a96e; border:none; cursor:pointer; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Замовлення</h1>
+  <nav>
+    <a href="index.html">Головна</a>
+    <a href="contact.html">Замовлення</a>
+  </nav>
+</header>
+
+<form id="orderForm" action="https://formspree.io/f/yourformid" method="POST">
+  <input type="text" name="name" placeholder="Ваше ім'я" required>
+  <input type="email" name="email" placeholder="Email" required>
+  <textarea name="message" placeholder="Що хочете замовити?" required></textarea>
+  <button type="submit">Відправити замовлення</button>
+</form>
+
+<script src="js/form.js" defer></script>
+</body>
+</html>

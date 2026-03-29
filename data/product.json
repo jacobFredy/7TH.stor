@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "Zip Hoodie Black",
+    "price": 1200,
+    "img": [
+      "https://img.kwcdn.com/product/fancy/9f838c94-4e68-49a8-94ce-d489c817df4d.jpg"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "T-Shirt White",
+    "price": 600,
+    "img": [
+      "https://i.postimg.cc/k52H5qFS/avif.avif"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Hoodie Grey",
+    "price": 1300,
+    "img": [
+      "https://i.postimg.cc/0NSLf9M2/avif.avif"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Belt Classic",
+    "price": 400,
+    "img": [
+      "https://i.postimg.cc/mrM5MRhQ/avif.avif"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Hood Pass",
+    "price": 1500,
+    "img": [
+      "https://i.postimg.cc/W15YTxXM/avif.avif"
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Accessories Pack",
+    "price": 700,
+    "img": [
+      "https://i.postimg.cc/dVFRpnF4/avif.avif"
+    ]
+  }
+]
