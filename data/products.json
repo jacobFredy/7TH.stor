@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "name": "Zip Hoodie Black",
+    "price": 1200,
+    "images": [
+      "https://img.kwcdn.com/product/fancy/205b7c4b-0d74-4344-b63a-e1d8e66927ff.jpg"
+    ],
+    "sizes": ["S","M","L","XL"],
+    "type": ["Oversize","Regular"],
+    "inStock": true
+  },
+  {
+    "id": 2,
+    "name": "Street T-Shirt",
+    "price": 600,
+    "images": [
+      "https://i.postimg.cc/k52H5qFS/avif.avif"
+    ],
+    "sizes": ["S","M","L"],
+    "type": ["Basic"],
+    "inStock": true
+  }
+]

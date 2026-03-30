@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>7TH | Product</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --accent:#c9a96e;
+    --bg:#f1f1f1;
+}
+
+body{
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    background:var(--bg);
+}
+
+/* layout */
+.container{
+    max-width:1100px;
+    margin:60px auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:50px;
+}
+
+/* image */
+.product-img img{
+    width:100%;
+    border-radius:20px;
+}
+
+/* info */
+h1{
+    font-family:'Bebas Neue';
+    font-size:50px;
+    margin:0;
+}
+
+.price{
+    font-size:24px;
+    color:var(--accent);
+    margin:10px 0;
+}
+
+/* stock */
+.instock{ color:green; font-weight:700; }
+.out{ color:red; font-weight:700; }
+
+/* select */
+select{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border-radius:10px;
+    border:1px solid #ccc;
+}
+
+/* button */
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:50px;
+    background:var(--accent);
+    font-weight:700;
+    cursor:pointer;
+    margin-top:15px;
+    transition:0.3s;
+}
+button:hover{
+    background:#111;
+    color:#fff;
+}
+
+/* toast */
+#toast{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:var(--accent);
+    padding:15px 25px;
+    border-radius:50px;
+    font-weight:700;
+    display:none;
+}
+
+/* sidebar */
+.sidebar{
+    position:fixed;
+    top:0;
+    left:-300px;
+    width:250px;
+    height:100%;
+    background:#111;
+    padding:30px 20px;
+    transition:0.4s;
+}
+.sidebar a{
+    display:block;
+    color:#fff;
+    text-decoration:none;
+    margin:15px 0;
+}
+
+/* logo */
+.logo{
+    position:fixed;
+    top:20px;
+    left:20px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+</style>
+</head>
+<body>
+
+<div class="logo" id="logo">☰</div>
+
+<div class="sidebar" id="sidebar">
+    <a href="index.html">Головна</a>
+    <a href="contact.html">Замовлення</a>
+</div>
+
+<div class="container">
+
+    <div class="product-img">
+        <img id="productImg">
+    </div>
+
+    <div>
+        <h1 id="productName"></h1>
+        <div class="price" id="productPrice"></div>
+
+        <p id="stock"></p>
+
+        <label>Розмір:</label>
+        <select id="sizeSelect"></select>
+
+        <label>Тип:</label>
+        <select id="typeSelect"></select>
+
+        <button id="addToCart">Додати в корзину</button>
+    </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+fetch("data/products.json")
+.then(res=>res.json())
+.then(products=>{
+
+    const product = products.find(p => p.id == id);
+
+    if(!product){
+        document.body.innerHTML = "<h1 style='text-align:center'>Товар не знайдено</h1>";
+        return;
+    }
+
+    // basic
+    document.getElementById("productName").textContent = product.name;
+    document.getElementById("productPrice").textContent = product.price + " грн";
+    document.getElementById("productImg").src = product.images[0];
+
+    // stock
+    const stock = document.getElementById("stock");
+    if(product.inStock){
+        stock.textContent = "В наявності";
+        stock.className = "instock";
+    } else {
+        stock.textContent = "Немає в наявності";
+        stock.className = "out";
+    }
+
+    // sizes
+    const sizeSelect = document.getElementById("sizeSelect");
+    if(product.sizes){
+        product.sizes.forEach(size=>{
+            sizeSelect.innerHTML += `<option>${size}</option>`;
+        });
+    }
+
+    // type
+    const typeSelect = document.getElementById("typeSelect");
+    if(product.type){
+        product.type.forEach(t=>{
+            typeSelect.innerHTML += `<option>${t}</option>`;
+        });
+    }
+
+    // add to cart
+    document.getElementById("addToCart").addEventListener("click", ()=>{
+
+        cart.push({
+            ...product,
+            selectedSize: sizeSelect.value,
+            selectedType: typeSelect.value
+        });
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        showToast("Додано в корзину 🔥");
+    });
+
+});
+
+// toast
+function showToast(text){
+    const toast = document.getElementById('toast');
+    toast.textContent = text;
+    toast.style.display = 'block';
+
+    setTimeout(()=>{
+        toast.style.display = 'none';
+    },3000);
+}
+
+// sidebar
+const logo = document.getElementById('logo');
+const sidebar = document.getElementById('sidebar');
+
+let timeout;
+
+function openSidebar(){
+    clearTimeout(timeout);
+    sidebar.style.left='0';
+}
+function closeSidebar(){
+    timeout = setTimeout(()=>{ sidebar.style.left='-300px'; },200);
+}
+
+logo.addEventListener('mouseenter', openSidebar);
+logo.addEventListener('mouseleave', closeSidebar);
+sidebar.addEventListener('mouseenter', openSidebar);
+sidebar.addEventListener('mouseleave', closeSidebar);
+
+</script>
+
+</body>
+</html>
